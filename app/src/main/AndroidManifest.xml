@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Normal install-time permissions -->
+    <!-- INTERNET: Needed to send natural language commands to the Groq API endpoint and validate the user's API key. Requested at install-time. If unavailable, network error is surfaced to the user. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- ACCESS_NETWORK_STATE: Needed to verify network availability before initiating API requests to provide immediate, clear feedback. Requested at install-time. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Runtime-requested permissions -->
+    <!-- RECORD_AUDIO: Needed for voice input via SpeechRecognizer. Requested at runtime when user taps the microphone button. If denied, the app degrades gracefully to text input. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- READ_CONTACTS: Needed to resolve spoken contact names (e.g., 'Mom', 'Alice') to phone numbers. Requested at runtime when handling communication commands. If denied, user is prompted to enter phone number manually. -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- READ_CALENDAR: Needed to inspect existing calendar events and avoid creating duplicate appointments. Requested at runtime. If denied, user is prompted to grant permission before scheduling. -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <!-- WRITE_CALENDAR: Needed to insert verified calendar appointments into the device calendar provider. Requested at runtime. If denied, user is notified that the event cannot be written to the calendar. -->
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+    <!-- SEND_SMS: Optional direct-send mode for SMS without opening Messages app. Requested at runtime only if user explicitly opts in via Settings. If denied or disabled, app uses zero-permission ACTION_SENDTO. -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <!-- CALL_PHONE: Optional direct-call mode without opening dialer. Requested at runtime only if user explicitly opts in via Settings. If denied or disabled, app uses zero-permission ACTION_DIAL. -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- SCHEDULE_EXACT_ALARM: Needed on Android 12+ for exact alarm timing when requested. Checked via canScheduleExactAlarms(). If denied, falls back to standard Clock app intent or inexact alarms. -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <!-- POST_NOTIFICATIONS: Needed on Android 13+ (API 33+) to surface action completion status notifications. Requested at runtime. If denied, status is shown strictly within in-app UI. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Queries required for Android 11+ (API 30+) package visibility -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="smsto" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="geo" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="mailto" />
+        </intent>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SET_ALARM" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

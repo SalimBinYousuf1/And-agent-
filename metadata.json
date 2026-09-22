@@ -1,0 +1,6 @@
+{
+  "name": "salim",
+  "description": "On-device AI personal agent assistant executing native actions with Groq structured output, safety reviews, and Keystore-backed encryption.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
